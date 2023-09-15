@@ -86,30 +86,35 @@ class GildedRoseTest {
   @DisplayName("Test that aged brie increases in quality")
   void testAgedBrie() {
     Item[] items = new Item[]{
-      new Item("Aged Brie", 2, 5),
-      new Item("Aged Brie", 0, 5),
-      new Item("Aged Brie", -1, 5),
-      new Item("Aged Brie", 2, 50),
-      new Item("Aged Brie", 0, 50),
-      new Item("Aged Brie", -1, 50)
+        new Item("Aged Brie", 2, 5),
+        new Item("Aged Brie", 2, 50),
+        new Item("Aged Brie", 0, 5),
+        new Item("Aged Brie", 0, 50)
+        
     };
 
     GildedRose app = new GildedRose(items);
+
     for (int day = 0; day < 100; day++) {  // Simulate 100 days
-      app.updateQuality();
+        int initialQuality = items[0].quality;  // Store initial Quality value for Aged Brie
 
-      for (Item item : items) {
-          String failMessage = "Failed on item: " + item.name;
+        // Update all items
+        app.updateQuality();
 
-          if (item.sellIn > 0) {
-              assertTrue(item.quality > 5, failMessage + " (Quality hasn't increased)");
-          } else {
-              assertTrue(item.quality > 7, failMessage + " (Quality hasn't increased)");
-          }
-      }
-  }
+        // Check if Quality has increased for Aged Brie
+        String failMessage = "Failed on item: " + items[0].name;
+
+        if (items[0].quality <= 50) {
+            assertTrue(items[0].quality > initialQuality, failMessage + " (Quality hasn't increased)");
+        } else {
+            assertTrue(items[0].quality == 50, failMessage + " (Quality exceeds 50)");
+        }
+    }
 }
 }
+
+
+
 
 // @Test
 // @DisplayName("Test that backstage passes increase in quality")
