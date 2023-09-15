@@ -16,7 +16,7 @@ class GildedRoseTest {
   }
 
   @Test
-  @DisplayName("Test that quality isn't negative and doesn't exceed 50 (and Sulfuras hasn't changed)")
+  @DisplayName("Test that quality isn't negative and doesn't exceed 50 except Sulfuras (and Sulfuras hasn't changed)")
   void testQuality() {
     Item[] items = new Item[]{
       new Item("Aged Brie", 2, 5),
@@ -80,5 +80,53 @@ class GildedRoseTest {
               }
           }
       }
-  }
+  
 
+  @Test
+  @DisplayName("Test that aged brie increases in quality")
+  void testAgedBrie() {
+    Item[] items = new Item[]{
+      new Item("Aged Brie", 2, 5),
+      new Item("Aged Brie", 0, 5),
+      new Item("Aged Brie", -1, 5),
+      new Item("Aged Brie", 2, 50),
+      new Item("Aged Brie", 0, 50),
+      new Item("Aged Brie", -1, 50)
+    };
+
+    GildedRose app = new GildedRose(items);
+    for (int day = 0; day < 100; day++) {  // Simulate 100 days
+      app.updateQuality();
+
+      for (Item item : items) {
+          String failMessage = "Failed on item: " + item.name;
+
+          if (item.sellIn > 0) {
+              assertTrue(item.quality > 5, failMessage + " (Quality hasn't increased)");
+          } else {
+              assertTrue(item.quality > 7, failMessage + " (Quality hasn't increased)");
+          }
+      }
+  }
+}
+}
+
+// @Test
+// @DisplayName("Test that backstage passes increase in quality")
+// void testBackstagePasses() {
+//   Item[] items = new Item[]{
+//     new Item("Backstage passes", 15, 20),
+//     new Item("Backstage passes", 10, 20),
+//     new Item("Backstage passes", 5, 20),
+//     new Item("Backstage passes", 0, 20),
+//     new Item("Backstage passes", 15, 50),
+//     new Item("Backstage passes", 10, 50),
+//     new Item("Backstage passes", 5, 50),
+//     new Item("Backstage passes", 0, 50)
+//   };
+
+//   GildedRose app = new GildedRose(items);
+//   for (int day = 0; day < 100; day++) {  // Simulate 100 days
+//     app.updateQuality();
+
+//     for 
