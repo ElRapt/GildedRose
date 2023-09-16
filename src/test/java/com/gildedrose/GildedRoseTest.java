@@ -65,7 +65,7 @@ class GildedRoseTest {
   void testConjuredQuality() {
     Item conjured = new Item("Conjured", 3, 6);
     GildedRose app = new GildedRose(new Item[]{conjured});
-    simulateDays(app, 1);
+    app.updateQuality();
     String failMessage = "Failed on item: " + conjured.name;
     assertEquals(4, conjured.quality, failMessage + " (Quality didn't degrade twice as fast)");
   }
@@ -76,7 +76,7 @@ class GildedRoseTest {
   void testQualityExpired() {
     Item normalItem = new Item("Normal Item", 0, 6);
     GildedRose app = new GildedRose(new Item[]{normalItem});
-    simulateDays(app, 1);
+    app.updateQuality();
     String failMessage = "Failed on item: " + normalItem.name;
     assertEquals(4, normalItem.quality, failMessage + " (Quality didn't drop twice as fast after sellIn is negative)");
   }
@@ -108,6 +108,13 @@ class GildedRoseTest {
     // Test for sellIn < 0 (expired)
     failMessage = "Failed on item with sellIn < 0: " + items[3].name;
     assertEquals(0, items[3].quality, failMessage + " (Quality didn't drop to 0)");
+  }
+
+  @Test
+  @DisplayName("Test that toString method works as expected")
+  void testToStringMethod() {
+      Item item = new Item("Normal Item", 3, 6);
+      assertEquals("Normal Item, 3, 6", item.toString(), "toString() output mismatch");
   }
 
 
