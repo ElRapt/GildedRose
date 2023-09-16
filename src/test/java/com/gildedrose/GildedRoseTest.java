@@ -70,6 +70,18 @@ class GildedRoseTest {
     assertEquals(4, conjured.quality, failMessage + " (Quality didn't degrade twice as fast)");
   }
 
+
+  @Test
+  @DisplayName("Test that quality drops twice as fast for normal items after sellIn is negative")
+  void testQualityExpired() {
+    Item normalItem = new Item("Normal Item", 0, 6);
+    GildedRose app = new GildedRose(new Item[]{normalItem});
+    simulateDays(app, 1);
+    String failMessage = "Failed on item: " + normalItem.name;
+    assertEquals(4, normalItem.quality, failMessage + " (Quality didn't drop twice as fast after sellIn is negative)");
+  }
+
+
   private Item[] generateTestItems() {
     return new Item[]{
       new Item("Aged Brie", 2, 5),
