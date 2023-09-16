@@ -81,6 +81,35 @@ class GildedRoseTest {
     assertEquals(4, normalItem.quality, failMessage + " (Quality didn't drop twice as fast after sellIn is negative)");
   }
 
+  @Test
+  @DisplayName("Test that Backstage passes behave correctly")
+  void testBackstagePasses() {
+    Item[] items = new Item[]{
+        new Item("Backstage passes to a TAFKAL80ETC concert", 11, 10),
+        new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10),
+        new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10),
+        new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10)
+    };
+    GildedRose app = new GildedRose(items);
+
+    // Test for sellIn > 10
+    app.updateQuality();
+    String failMessage = "Failed on item with sellIn > 10: " + items[0].name;
+    assertEquals(11, items[0].quality, failMessage + " (Quality didn't increase by 1 point)");
+
+    // Test for 5 < sellIn <= 10
+    failMessage = "Failed on item with 5 < sellIn <= 10: " + items[1].name;
+    assertEquals(12, items[1].quality, failMessage + " (Quality didn't increase by 2 points)");
+
+    // Test for sellIn <= 5
+    failMessage = "Failed on item with sellIn <= 5: " + items[2].name;
+    assertEquals(13, items[2].quality, failMessage + " (Quality didn't increase by 3 points)");
+
+    // Test for sellIn < 0 (expired)
+    failMessage = "Failed on item with sellIn < 0: " + items[3].name;
+    assertEquals(0, items[3].quality, failMessage + " (Quality didn't drop to 0)");
+  }
+
 
   private Item[] generateTestItems() {
     return new Item[]{
