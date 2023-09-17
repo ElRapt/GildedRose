@@ -85,15 +85,15 @@ class GildedRoseTest {
   @DisplayName("Test that Backstage passes behave correctly")
   void testBackstagePasses() {
     Item[] items = new Item[]{
-        new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 11, 10),
-        new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 10, 10),
-        new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 5, 10),
-        new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 0, 10)
+        new BackstagePass("TAFKAL80ETC", 11, 10),
+        new BackstagePass("TAFKAL80ETC", 10, 10),
+        new BackstagePass("TAFKAL80ETC", 5, 10),
+        new BackstagePass("TAFKAL80ETC", 0, 10)
     };
     GildedRose app = new GildedRose(items);
+    app.passDay();
 
     // Test for sellIn > 10
-    app.passDay();
     String failMessage = "Failed on item with sellIn > 10: " + items[0].name;
     assertEquals(11, items[0].quality, failMessage + " (Quality didn't increase by 1 point)");
 

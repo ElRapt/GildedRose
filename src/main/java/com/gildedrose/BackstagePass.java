@@ -8,24 +8,19 @@ public class BackstagePass extends Item{
     }
     
     @Override
-    public void updateQuality()
-    {
-        if (sellIn > 10) 
-        {
+    public void updateQuality() {
+        sellIn--;
+    
+        if (sellIn >= 10) {
             quality = Math.min(50, quality + 1);
-        }
-        else if (sellIn <= 10 && sellIn > 5)
-        {
+        } else if (sellIn >= 5) {
             quality = Math.min(50, quality + 2);
-        }
-        else if (sellIn <= 5 && sellIn >= 0)
-        {
+        } else if (sellIn >= 0) {
             quality = Math.min(50, quality + 3);
-        }
-        else if (sellIn < 0)
-        {
+        } else {
             quality = 0;
         }
     }
+    
 }
 
