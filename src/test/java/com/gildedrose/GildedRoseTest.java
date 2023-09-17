@@ -8,9 +8,9 @@ class GildedRoseTest {
   @Test
   @DisplayName("Test that the name is unchanged")
   void testName() {
-    Item element = new Item("foo", 0, 0);
+    Item element = new NormalItem("foo", 0, 0);
     GildedRose app = new GildedRose(new Item[] {element});
-    app.updateQuality();
+    app.passDay();
     assertEquals("foo", element.name, "the name changed");
   }
 
@@ -53,7 +53,7 @@ class GildedRoseTest {
   @Test
   @DisplayName("Test that Aged Brie increases in quality")
   void testAgedBrieQuality() {
-    Item agedBrie = new Item("Aged Brie", 2, 5);
+    Item agedBrie = new AgedBrie(2, 5);
     GildedRose app = new GildedRose(new Item[]{agedBrie});
     simulateDays(app, 100);
     String failMessage = "Failed on item: " + agedBrie.name;
@@ -65,7 +65,7 @@ class GildedRoseTest {
   void testConjuredQuality() {
     Item conjured = new Item("Conjured", 3, 6);
     GildedRose app = new GildedRose(new Item[]{conjured});
-    app.updateQuality();
+    app.passDay();
     String failMessage = "Failed on item: " + conjured.name;
     assertEquals(4, conjured.quality, failMessage + " (Quality didn't degrade twice as fast)");
   }
@@ -74,9 +74,9 @@ class GildedRoseTest {
   @Test
   @DisplayName("Test that quality drops twice as fast for normal items after sellIn is negative")
   void testQualityExpired() {
-    Item normalItem = new Item("Normal Item", 0, 6);
+    Item normalItem = new NormalItem("Normal Item", 0, 6);
     GildedRose app = new GildedRose(new Item[]{normalItem});
-    app.updateQuality();
+    app.passDay();
     String failMessage = "Failed on item: " + normalItem.name;
     assertEquals(4, normalItem.quality, failMessage + " (Quality didn't drop twice as fast after sellIn is negative)");
   }
@@ -85,15 +85,15 @@ class GildedRoseTest {
   @DisplayName("Test that Backstage passes behave correctly")
   void testBackstagePasses() {
     Item[] items = new Item[]{
-        new Item("Backstage passes to a TAFKAL80ETC concert", 11, 10),
-        new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10),
-        new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10),
-        new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10)
+        new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 11, 10),
+        new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 10, 10),
+        new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 5, 10),
+        new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 0, 10)
     };
     GildedRose app = new GildedRose(items);
 
     // Test for sellIn > 10
-    app.updateQuality();
+    app.passDay();
     String failMessage = "Failed on item with sellIn > 10: " + items[0].name;
     assertEquals(11, items[0].quality, failMessage + " (Quality didn't increase by 1 point)");
 
@@ -113,24 +113,24 @@ class GildedRoseTest {
   @Test
   @DisplayName("Test that toString method works as expected")
   void testToStringMethod() {
-      Item item = new Item("Normal Item", 3, 6);
+      Item item = new NormalItem("Normal Item", 3, 6);
       assertEquals("Normal Item, 3, 6", item.toString(), "toString() output mismatch");
   }
 
 
   private Item[] generateTestItems() {
     return new Item[]{
-      new Item("Aged Brie", 2, 5),
-      new Item("Backstage passes", 15, 20),
-      new Item("Conjured", 3, 6),
-      new Item("Normal Item", 3, 6),
-      new Item("Sulfuras, Hand of Ragnaros", 0, 80)
+      new AgedBrie(2, 5),
+      new BackstagePass(15, 20),
+      new Conjured(3, 6),
+      new NormalItem("Normal Item", 3, 6),
+      new Sulfuras()
     };
   }
 
   private void simulateDays(GildedRose app, int days) {
     for (int i = 0; i < days; i++) {
-      app.updateQuality();
+      app.passDay();
     }
   }
 }
