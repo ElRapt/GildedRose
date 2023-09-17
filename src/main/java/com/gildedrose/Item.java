@@ -15,6 +15,7 @@ public abstract class Item {
     }
 
     public abstract void updateQuality();
+    
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + ", " + this.sellIn + ", " + this.quality;

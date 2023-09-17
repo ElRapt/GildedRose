@@ -63,7 +63,7 @@ class GildedRoseTest {
   @Test
   @DisplayName("Test that Conjured items degrade twice as fast")
   void testConjuredQuality() {
-    Item conjured = new Item("Conjured", 3, 6);
+    Item conjured = new Conjured("Mana cake", 3, 6);
     GildedRose app = new GildedRose(new Item[]{conjured});
     app.passDay();
     String failMessage = "Failed on item: " + conjured.name;
@@ -121,8 +121,8 @@ class GildedRoseTest {
   private Item[] generateTestItems() {
     return new Item[]{
       new AgedBrie(2, 5),
-      new BackstagePass(15, 20),
-      new Conjured(3, 6),
+      new BackstagePass("TAFKAL80ETC", 15, 20),
+      new Conjured("Mana cake", 3, 6),
       new NormalItem("Normal Item", 3, 6),
       new Sulfuras()
     };

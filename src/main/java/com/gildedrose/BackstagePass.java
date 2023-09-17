@@ -4,7 +4,7 @@ public class BackstagePass extends Item{
 
     public BackstagePass(String concert, int quality, int sellIn)
     {
-        super("Backstage pass to a" + concert + "concert", quality, sellIn);
+        super("Backstage pass to a " + concert + " concert", quality, sellIn);
     }
     
     @Override
