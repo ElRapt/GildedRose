@@ -84,31 +84,42 @@ class GildedRoseTest {
   @Test
   @DisplayName("Test that Backstage passes behave correctly")
   void testBackstagePasses() {
-    Item[] items = new Item[]{
-        new BackstagePass("TAFKAL80ETC", 11, 10),
-        new BackstagePass("TAFKAL80ETC", 10, 10),
-        new BackstagePass("TAFKAL80ETC", 5, 10),
-        new BackstagePass("TAFKAL80ETC", 0, 10)
-    };
-    GildedRose app = new GildedRose(items);
-    app.passDay();
+      Item[] items = new Item[]{
+          new BackstagePass("TAFKAL80ETC", 49, 10),
+          new BackstagePass("TAFKAL80ETC", 48, 4),
+          new BackstagePass("TAFKAL80ETC", 11, 10),
+          new BackstagePass("TAFKAL80ETC", 10, 10),
+          new BackstagePass("TAFKAL80ETC", 5, 10),
+          new BackstagePass("TAFKAL80ETC", 0, 10)
+      };
+      GildedRose app = new GildedRose(items);
+      app.passDay();
 
-    // Test for sellIn > 10
-    String failMessage = "Failed on item with sellIn > 10: " + items[0].name;
-    assertEquals(11, items[0].quality, failMessage + " (Quality didn't increase by 1 point)");
-
-    // Test for 5 < sellIn <= 10
-    failMessage = "Failed on item with 5 < sellIn <= 10: " + items[1].name;
-    assertEquals(12, items[1].quality, failMessage + " (Quality didn't increase by 2 points)");
-
-    // Test for sellIn <= 5
-    failMessage = "Failed on item with sellIn <= 5: " + items[2].name;
-    assertEquals(13, items[2].quality, failMessage + " (Quality didn't increase by 3 points)");
-
-    // Test for sellIn < 0 (expired)
-    failMessage = "Failed on item with sellIn < 0: " + items[3].name;
-    assertEquals(0, items[3].quality, failMessage + " (Quality didn't drop to 0)");
+      // Edge cases to test that quality doesn't exceed 50
+      String failMessage = "Failed on item with quality = 49: " + items[0].name;
+      assertEquals(11, items[0].quality, failMessage + " (Quality didn't increase by 1 point)");
+  
+      failMessage = "Failed on item with quality = 48: " + items[1].name;
+      assertEquals(5, items[1].quality, failMessage + " (Quality didn't increase by 1 point)");
+      
+      // Test for sellIn > 10
+      failMessage = "Failed on item with sellIn > 10: " + items[2].name;
+      assertEquals(11, items[2].quality, failMessage + " (Quality didn't increase by 1 point)");
+  
+      // Test for 5 < sellIn <= 10
+      failMessage = "Failed on item with 5 < sellIn <= 10: " + items[3].name;
+      assertEquals(12, items[3].quality, failMessage + " (Quality didn't increase by 2 points)");
+  
+      // Test for sellIn <= 5
+      failMessage = "Failed on item with sellIn <= 5: " + items[4].name;
+      assertEquals(13, items[4].quality, failMessage + " (Quality didn't increase by 3 points)");
+  
+      // Test for sellIn < 0 (expired)
+      failMessage = "Failed on item with sellIn < 0: " + items[5].name;
+      assertEquals(0, items[5].quality, failMessage + " (Quality didn't drop to 0)");
+  
   }
+  
 
   @Test
   @DisplayName("Test that toString method works as expected")
