@@ -18,6 +18,6 @@ public abstract class Item {
     
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ", " + this.sellIn + ", " + this.quality;
+        return this.name + ", " + this.sellIn + ", " + this.quality;
     }
 }
