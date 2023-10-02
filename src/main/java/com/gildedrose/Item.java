@@ -9,6 +9,7 @@ public abstract class Item {
     public int quality;
 
     public Item(String name, int sellIn, int quality) {
+        // IllegalArgumentException not thrown here because Sulfuras would break it
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;
