@@ -129,6 +129,37 @@ class GildedRoseTest {
   }
 
 
+  @Test
+  @DisplayName("Test that Argument exception are correctly raised")
+  void testIllegalArgument() {
+      assertThrows(IllegalArgumentException.class, () -> {
+          new NormalItem("Free Action Potion", 1, 51);
+      });
+      assertThrows(IllegalArgumentException.class, () -> {
+          new NormalItem("Free Action Potion", 1, -1);
+      });
+      assertThrows(IllegalArgumentException.class, () -> {
+          new Conjured("Mana cake", 1, 51);
+      });
+      assertThrows(IllegalArgumentException.class, () -> {
+          new Conjured("Mana cake", 1, -1);
+      });
+      assertThrows(IllegalArgumentException.class, () -> {
+          new BackstagePass("Arctic Monkeys", 1, 51);
+      });
+      assertThrows(IllegalArgumentException.class, () -> {
+          new BackstagePass("Arctic Monkeys", 1, -1);
+      });
+      assertThrows(IllegalArgumentException.class, () -> {
+          new AgedBrie(1, 51);
+      });
+      assertThrows(IllegalArgumentException.class, () -> {
+          new AgedBrie(1, -1);
+      });
+  }
+  
+
+
   private Item[] generateTestItems() {
     return new Item[]{
       new AgedBrie(2, 5),
