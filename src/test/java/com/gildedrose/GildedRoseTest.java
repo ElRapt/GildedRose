@@ -61,13 +61,15 @@ class GildedRoseTest {
   }
 
   @Test
-  @DisplayName("Test that Conjured items degrade twice as fast")
+  @DisplayName("Test that Conjured items behave correctly")
   void testConjuredQuality() {
-    Item conjured = new Conjured("Mana cake", 3, 6);
-    GildedRose app = new GildedRose(new Item[]{conjured});
+    Item conjuredCake = new Conjured("Mana cake", 3, 6);
+    Item conjuredWater = new Conjured("Fresh water", -1, 4);
+    GildedRose app = new GildedRose(new Item[]{conjuredCake, conjuredWater});
     app.passDay();
-    String failMessage = "Failed on item: " + conjured.name;
-    assertEquals(4, conjured.quality, failMessage + " (Quality didn't degrade twice as fast)");
+    assertEquals(4, conjuredCake.quality, " (Quality didn't degrade twice as fast)");
+    assertEquals(0, conjuredWater.quality," (Quality didn't degrade four times as fast)");
+    
   }
 
 

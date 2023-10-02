@@ -1,9 +1,9 @@
 package com.gildedrose;
 
 public class Conjured extends Item {
-    public Conjured(String name, int quality, int sellIn)
+    public Conjured(String name, int sellIn, int quality)
     {
-        super("Conjured "+ name, quality, sellIn);
+        super("Conjured "+ name, sellIn, quality);
     }
 
     @Override
@@ -13,7 +13,7 @@ public class Conjured extends Item {
         quality = Math.max(quality-2, 0);
       }
     
-    else if (sellIn < 0 )
+    else
     {
         quality = Math.max(quality-4, 0);
     } 
