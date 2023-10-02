@@ -87,13 +87,12 @@ class GildedRoseTest {
   @DisplayName("Test that Backstage passes behave correctly")
   void testBackstagePasses() {
       Item[] items = new Item[]{
-        new BackstagePass("TAFKAL80ETC", 10, 49),
-        new BackstagePass("TAFKAL80ETC", 4, 48),
-        new BackstagePass("TAFKAL80ETC", 10, 11),
-        new BackstagePass("TAFKAL80ETC", 10, 10),
-        new BackstagePass("TAFKAL80ETC", 10, 5),
-        new BackstagePass("TAFKAL80ETC", 10, 0)
-        
+          new BackstagePass("TAFKAL80ETC", 49, 10),
+          new BackstagePass("TAFKAL80ETC", 48, 4),
+          new BackstagePass("TAFKAL80ETC", 11, 10),
+          new BackstagePass("TAFKAL80ETC", 10, 10),
+          new BackstagePass("TAFKAL80ETC", 5, 10),
+          new BackstagePass("TAFKAL80ETC", 0, 10)
       };
       GildedRose app = new GildedRose(items);
       app.passDay();
