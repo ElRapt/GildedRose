@@ -10,7 +10,7 @@ public class BackstagePass extends Item{
     @Override
     public void updateQuality() {
         sellIn--;
-    
+        // Math.min ensures that the quality never exceeds 50 but correctly increases
         if (sellIn >= 10) {
             quality = Math.min(50, quality + 1);
         } else if (sellIn >= 5) {

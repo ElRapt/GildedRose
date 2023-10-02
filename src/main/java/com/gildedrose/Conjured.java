@@ -8,11 +8,17 @@ public class Conjured extends Item {
 
     @Override
     public void updateQuality(){
-    if (quality > 0) {
-        quality-=2;
+        // Math.max ensures quality can never go below 0 even with large updates
+    if (sellIn >= 0) {
+        quality = Math.max(quality-2, 0);
       }
+    
+    else if (sellIn < 0 )
+    {
+        quality = Math.max(quality-4, 0);
+    } 
       sellIn--;
-    }
-}
+}}
+
     
 
