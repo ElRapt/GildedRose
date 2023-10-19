@@ -16,7 +16,13 @@ public abstract class Item {
     }
 
     public abstract void updateQuality();
-    
+
+    protected void checkQualityRange() {
+        if (quality < 0 || quality > 50) {
+            throw new IllegalArgumentException("Quality must be between 0 and 50");
+        }
+    }
+
     @Override
     public String toString() {
         return this.name + ", " + this.sellIn + ", " + this.quality;
